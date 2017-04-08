@@ -1,0 +1,124 @@
+<br><div class="qtitle"><h3>Welcome to QmeIn, <strong>{{ user.firstname }}</strong> <strong>{{ user.lastname }}</strong>!</h2></div>
+
+{{#unless user.businessname}}
+	<!-- QueMeIn button -->
+	<form method="post" action="/users/addtoqueue">
+	  <div class="qform">
+		<h3>Queues Available:<p><br></p>
+		<select class="selectpicker2" data-style="btn-primary" name="merchantemail">
+				{{#each merchantdata}}
+				<option value={{username}}>{{businessname}}</option>
+				{{/each}}
+		</select></h3>
+		<input type="hidden" class="form-control" name="firstname" value={{user.firstname}}>
+		<input type="hidden" class="form-control" name="lastname" value={{user.lastname}}>
+		<input type="hidden" class="form-control" name="email" value={{user.username}}>
+		<input type="hidden" class="form-control" name="phonenumber" value={{user.phonenumber}}>
+	  </div><p></p>
+	  <button type="submit" class="qbutton" style="vertical-align:middle "name="statusButton" value="checkLine"><span>How many in Queue?</span></button>
+	  <br>
+	  <button type="submit" class="qbutton" style="vertical-align:middle" name="statusButton" value="qmein"><span>QmeIn</span></button>
+	</form>
+{{/unless}}
+
+
+<div class="qtitle">
+{{#compare count ">=" 0}}
+<h2>The total number in Queue: {{count}}</h2>
+{{/compare}}
+</div>
+
+{{#if alreadyInQueue}}
+<h3>You are already in {{businessname}} Queue.</h3>
+<h3>There are {{alreadyInQueue}} people total in the Queue.</h2>
+<h3>With an average time of 2 minutes for each transaction,</h3>
+<h3>you will be at the front of the line within {{waitTime}} minutes.</h3>
+{{/if}}
+
+
+{{#if user.businessname}}
+	<h3>Here is the current Queue: </h3>  
+	<table>
+	  <tr>
+		<th>Position</th>
+		<th>Last Name</th>
+		<th>First Name</th>
+		<th>Email</th>
+		<th>Phone Number</th>
+		<th>Time</th>
+		<th>Transaction Completed</th>
+		<th>Elapsed Time</th>
+	  </tr>
+		{{#each queuedata }}
+		<tr>
+			<td>{{inc @index}}</td>
+			<td>{{lastname}}</td>
+			<td>{{firstname}}</td>
+			<td>{{email}}</td>
+			<td>{{phonenumber}}</td>
+			<td>{{date}}</td>
+			<td><form action="/merchant/completeTransaction" method="post">
+			<button name="id" type="submit" class="btn btn-default" value={{_id}}>
+			Complete</button>
+			</form></td>
+			{{#compare @index "==" 0}}
+    		<td>
+				<h1><time>00:00:00</time></h1>
+				<div id="start"></div>
+			</td>
+			{{/compare}}
+			{{#compare @index "==" 2}}
+				{{sendemailsms}}
+			{{/compare}}
+			{{#compare @index "!=" 0}}
+    		<td>
+				<h3>Waiting</h3>
+			</td>
+			{{/compare}}
+		</tr>
+		{{/each}}
+	</table>
+{{/if}}
+
+
+{{#if user}}
+    <div class="logout-b">
+	<br>
+    <role="presentation"><a href="/logout">Logout</a></role>
+	</div>
+{{/if}}
+
+
+
+<script type="text/javascript">
+	var h1 = document.getElementsByTagName('h1')[0],
+		start = document.getElementById('start'),
+		seconds = 0, minutes = 0, hours = 0,
+		t;
+
+	function add() {
+		seconds++;    
+		if (seconds >= 60) {
+			seconds = 0;
+			minutes++;
+        if (minutes >= 60) {
+            minutes = 0;
+            hours++;
+			}
+		}
+    
+    h1.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+
+    timer();
+	}
+
+	function timer() {
+		t = setTimeout(add, 1000);
+	}
+	timer();
+
+	/* Start*/
+	start.onload = timer;
+</script>
+
+

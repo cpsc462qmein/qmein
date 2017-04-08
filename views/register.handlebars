@@ -1,0 +1,131 @@
+{{#if errors}}
+      {{#each errors}}
+        <div class="alert alert-danger">{{msg}}</div>
+      {{/each}}
+{{/if}}
+
+<br><br>
+<div class="tab">
+  <button class="tablinks" onclick="openCity(event, 'User')">User Register</button>
+  <button class="tablinks" onclick="openCity(event, 'Merchant')">Merchant Register</button>
+</div>
+
+<div id="User" class="tabcontent">
+  <br>
+<form class="qform" method="post" action="/users/registeruser">
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="First Name" name="firstname" required>
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="Last Name" name="lastname" required>
+  </div>
+  <div class="form-group">
+    <input type="tel" class="form-control" placeholder="Cell Phone Number" name="phonenumber" required>
+  </div>
+  <div class="form-group">
+  <select class="selectpicker" data-style="btn-primary" name="cellphonecompany">
+		<option>
+			<option value="" disabled selected>Cell Phone Carrier</option>
+			<option value="sms.alltelwireless.com">AllTel</option>
+			<option value="txt.att.net"">AT&T</option>
+			<option value="myboostmobile.com">Boost Mobile</option>
+			<option value="sms.mycricket.com">Cricket</option>
+			<option value="mymetropcs.com">Metro PCS</option>
+			<option value="sprintpaging.com">Sprint</option>
+			<option value="tmomail.net">T-Mobile</option>
+			<option value="vtext.com">Verizon</option>
+			<option value="vxtras.com">Virgin Mobile</option>
+		</option>
+   </select>
+   </div>
+   <div class="form-group">
+    <input type="email" class="form-control" placeholder="Email" name="email" required>
+  </div>
+  <div class="form-group">
+    <input type="password" class="form-control" placeholder="Password" name="password" required>
+  </div>
+  <div class="form-group">
+    <input type="password" class="form-control" placeholder="Confirm Password" name="password2" required>
+  </div>
+  <button type="submit" class="qbutton">Submit</button>
+</form>
+</div>
+
+
+<div id="Merchant" class="tabcontent">
+  <br>
+<form class="qform" method="post" action="/merchant/registermerchant">
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="Business Name" name="businessname" required>
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="First Name" name="firstname" required>
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="Last Name" name="lastname" required>
+  </div>
+  <div class="form-group">
+    <input type="tel" class="form-control" placeholder="Cell Phone Number" name="phonenumber" required>
+  </div>
+   <div class="form-group">
+  <select class="selectpicker" data-style="btn-primary" name="cellphonecompany">
+		<option>
+			<option value="" disabled selected>Cell Phone Carrier</option>
+			<option value="sms.alltelwireless.com">AllTel</option>
+			<option value="txt.att.net"">AT&T</option>
+			<option value="myboostmobile.com">Boost Mobile</option>
+			<option value="sms.mycricket.com">Cricket</option>
+			<option value="mymetropcs.com">Metro PCS</option>
+			<option value="sprintpaging.com">Sprint</option>
+			<option value="tmomail.net">T-Mobile</option>
+			<option value="vtext.com">Verizon</option>
+			<option value="vxtras.com">Virgin Mobile</option>
+		</option>
+   </select>
+   </div>
+   <div class="form-group">
+    <input type="email" class="form-control" placeholder="Email" name="email" required>
+  </div>
+  <div class="form-group">
+    <input type="password" class="form-control" placeholder="Password" name="password" required>
+  </div>
+  <div class="form-group">
+    <input type="password" class="form-control" placeholder="Confirm Password" name="password2" required>
+  </div>
+  <button type="submit" class="qbutton">Submit</button>
+</form>
+</div>
+
+
+<div class="logout-b">
+	<br>
+    <role="presentation"><a href="/">Take Me Back Home</a></role>
+</div>
+
+
+
+
+
+
+<script type="text/javascript">
+function openCity(evt, cityName) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
+
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+</script>

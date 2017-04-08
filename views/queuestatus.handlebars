@@ -1,0 +1,14 @@
+<h3>You are currently in the {{businessname}} Queue, <strong>{{ user.firstname }}</strong> <strong>{{ user.lastname }}</strong>!</h3>
+<h3>Your position in Queue is {{inQueue}}.</h3>
+<h3>You should get to your point of transaction in about {{waitTime}} minutes.</h3>  
+<br>
+<form action="/users/queueOut" method="post">
+	<input type="hidden" class="form-control" name="id" value={{user._id}}>
+	<button type="submit" class="btn btn-default" name="qmeout" value="qmeout">QmeOut</button>
+</form>
+{{#if user}}
+    <div class="logout-b">
+	<br>
+    <role="presentation"><a href="/logout">Logout</a></role>
+	</div>
+{{/if}}
